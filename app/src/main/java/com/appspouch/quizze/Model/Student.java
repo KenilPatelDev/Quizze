@@ -8,11 +8,11 @@ public class Student {
 
     }
 
-    public Student(String name, String email, String mobile, String id) {
-        this.name = name;
-        this.id = id;
-        this.email = email;
-        this.mobile = mobile;
+    public Student(String Name, String Email, String Mobile, String Id) {
+        this.name = Name;
+        this.id = Id;
+        this.email = Email;
+        this.mobile = Mobile;
 
     }
 }

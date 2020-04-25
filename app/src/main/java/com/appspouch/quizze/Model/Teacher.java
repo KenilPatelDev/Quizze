@@ -8,10 +8,10 @@ public class Teacher {
 
         }
 
-        public Teacher(String name, String email, String mobile, String designation) {
-            this.name = name;
-            this.email = email;
-            this.mobile = mobile;
-            this.designation = designation;
+        public Teacher(String Name, String Email, String Mobile, String Designation) {
+            this.name = Name;
+            this.email = Email;
+            this.mobile = Mobile;
+            this.designation = Designation;
         }
 }
