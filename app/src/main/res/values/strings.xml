@@ -45,6 +45,7 @@
     <string name="registration_unsuccess">Registration Unsuccessful, Please try again</string>
     <string name="input_error_email_invalid">enter a valid email</string>
     <string name="input_error_designation">designation required</string>
+    <string name="input_error_id">Id required</string>
 
     <string name="remember_me">Remember Me</string>
     <string name="Student_regi">Registration</string>

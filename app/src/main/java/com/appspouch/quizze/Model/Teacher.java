@@ -2,16 +2,16 @@ package com.appspouch.quizze.Model;
 
 public class Teacher {
 
-        public String name, email, phone, designation;
+        public String name, email, mobile, designation;
 
-        public Teacher(String name, String email, String mobile, String designation){
+        public Teacher(){
 
         }
 
-        public Teacher(String name, String email, String phone) {
+        public Teacher(String name, String email, String mobile, String designation) {
             this.name = name;
             this.email = email;
-            this.phone = phone;
+            this.mobile = mobile;
             this.designation = designation;
         }
 }

@@ -32,7 +32,7 @@ public class TeacherRegisterActivity extends AppCompatActivity implements View.O
     private EditText tName, tEmail, tPassword, tMobile, tdesignation;
     private ProgressBar progressBar;
 
-    private FirebaseAuth mAuth;
+    private FirebaseAuth tAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,7 @@ public class TeacherRegisterActivity extends AppCompatActivity implements View.O
         }
 
 
-       mAuth = FirebaseAuth.getInstance();
+       tAuth = FirebaseAuth.getInstance();
 
         findViewById(R.id.btn_tregister).setOnClickListener(this);
 
@@ -74,7 +74,7 @@ public class TeacherRegisterActivity extends AppCompatActivity implements View.O
     protected void onStart() {
         super.onStart();
 
-        if (mAuth.getCurrentUser() != null) {
+        if (tAuth.getCurrentUser() != null) {
             //handle the already login user
         }
     }
@@ -135,7 +135,7 @@ public class TeacherRegisterActivity extends AppCompatActivity implements View.O
         }
 
         progressBar.setVisibility(View.VISIBLE);
-        mAuth.createUserWithEmailAndPassword(email, password)
+        tAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
