@@ -43,6 +43,10 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".Auth_Controller.ResetPasswordActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".Teacher_Section.MainScreen"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".Student_Section.StuMainScreen"
+            android:theme="@style/AppTheme"/>
 
     </application>
 

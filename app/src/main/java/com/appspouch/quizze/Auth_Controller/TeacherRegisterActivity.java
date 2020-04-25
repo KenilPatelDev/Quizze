@@ -65,8 +65,6 @@ public class TeacherRegisterActivity extends AppCompatActivity implements View.O
         progressBar = findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
 
-
-
         btn_treg.setOnClickListener((View.OnClickListener) this);
     }
 
