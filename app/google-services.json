@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "992947909334",
+    "firebase_url": "https://quizze-app.firebaseio.com",
+    "project_id": "quizze-app",
+    "storage_bucket": "quizze-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:992947909334:android:e31d8b6d2cbfc0eb81cf77",
+        "android_client_info": {
+          "package_name": "com.appspouch.quizze"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "992947909334-tu5dvcedqcecn76u9v36du882b3u61n4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjSKTJK4NZ4JC9TLEt3eJeJ_vL6uokDFg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "992947909334-tu5dvcedqcecn76u9v36du882b3u61n4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

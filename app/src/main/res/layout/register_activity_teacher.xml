@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent">
+
+
+    <RelativeLayout
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:orientation="vertical"
+        android:background="#ededed"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Student_regi"
+            android:id="@+id/textview3"
+            android:fontFamily="@font/lato_black"
+            android:textColor="#366ce0"
+            android:textSize="25sp"
+            android:layout_marginStart="40dp"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
+
+        </androidx.appcompat.widget.AppCompatTextView>
+
+        <View
+            android:id="@+id/View2"
+            android:layout_width="145dp"
+            android:layout_height="7dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="#366ce0"
+            android:elevation="10dp"
+            android:layout_alignStart="@id/textview3"
+            android:layout_below="@+id/textview3">
+        </View>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/card3"
+            android:visibility="visible"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/View2"
+            android:padding="20dp"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="7dp"
+            android:background="@drawable/circular_card"
+            app:cardCornerRadius="7dp">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/f_name_txt"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="@font/lato_black"
+                    android:textSize="20sp"
+                    android:textStyle="bold">
+
+                </androidx.appcompat.widget.AppCompatTextView>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/f_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Name"
+                        android:inputType="textPersonName"
+                        android:fontFamily="@font/lato_bold"
+                        android:maxLines="1"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:singleLine="true"
+                        android:textColor="@android:color/black" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/contact_txt"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="@font/lato_black"
+                    android:textSize="20sp"
+                    android:textStyle="bold">
+
+                </androidx.appcompat.widget.AppCompatTextView>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/contact_no"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/contact_txt"
+                        android:inputType="phone"
+                        android:fontFamily="@font/lato_bold"
+                        android:maxLines="1"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:singleLine="true"
+                        android:textColor="@android:color/black" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email_txt"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="@font/lato_black"
+                    android:textSize="20sp"
+                    android:textStyle="bold">
+
+                </androidx.appcompat.widget.AppCompatTextView>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/email"
+                        android:inputType="textEmailAddress"
+                        android:fontFamily="@font/lato_bold"
+                        android:maxLines="1"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:singleLine="true"
+                        android:textColor="@android:color/black" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pass_txt"
+                    android:fontFamily="@font/lato_black"
+                    android:layout_marginStart="20dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold">
+
+                </androidx.appcompat.widget.AppCompatTextView>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato_bold"
+                        android:focusableInTouchMode="true"
+                        android:hint="@string/hint_password"
+                        android:inputType="textPassword"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@android:color/black" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/designation_txt"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="@font/lato_black"
+                    android:textSize="20sp"
+                    android:textStyle="bold">
+
+                </androidx.appcompat.widget.AppCompatTextView>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/designation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Designation"
+                        android:inputType="textPersonName"
+                        android:fontFamily="@font/lato_bold"
+                        android:maxLines="1"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:singleLine="true"
+                        android:textColor="@android:color/black" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/department_txt"
+                    android:fontFamily="@font/lato_black"
+                    android:layout_marginStart="20dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold">
+
+                </androidx.appcompat.widget.AppCompatTextView>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Spinner
+                        android:id="@+id/dept_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@string/department_txt"
+                        android:textAlignment="textStart"
+                        android:spinnerMode="dropdown"
+                        android:layout_marginTop="5dp"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/branch_txt"
+                    android:fontFamily="@font/lato_black"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold">
+
+                </androidx.appcompat.widget.AppCompatTextView>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Spinner
+                        android:id="@+id/branch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@string/branch_txt"
+                        android:textAlignment="textStart"
+                        android:layout_marginTop="5dp"
+                        android:spinnerMode="dropdown" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+                <Button
+                    android:id="@+id/btn_tregister"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:fontFamily="@font/lato_black"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/button_circular"
+                    android:text="@string/register_btn"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+
+
+
+                <Button
+                    android:id="@+id/btn_tlogin2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/lato_black"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circular_coloured_button"
+                    android:text="@string/btn_link_to_login"
+                    android:textAllCaps="false"
+                    android:padding="2dp"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <ProgressBar
+                android:id="@+id/progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:visibility="gone"/>
+
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+</ScrollView>
