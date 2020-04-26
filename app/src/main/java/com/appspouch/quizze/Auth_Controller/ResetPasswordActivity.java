@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,7 +22,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
     private EditText inputEmail;
     private Button btnReset, btnBack;
     private FirebaseAuth auth;
-    private AVLoadingIndicatorView avLoadingIndicatorView;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         inputEmail =  findViewById(R.id.email);
         btnReset =  findViewById(R.id.btn_reset_password);
         btnBack =  findViewById(R.id.btn_back);
-        avLoadingIndicatorView = findViewById(R.id.loader1);
+        progressBar = findViewById(R.id.progressBar);
 
         auth = FirebaseAuth.getInstance();
 
@@ -54,8 +55,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                     return;
                 }
 
-                avLoadingIndicatorView.setVisibility(View.VISIBLE);
-                avLoadingIndicatorView.show();
+                progressBar.setVisibility(View.VISIBLE);
                 auth.sendPasswordResetEmail(email)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -68,8 +68,8 @@ public class ResetPasswordActivity extends AppCompatActivity {
                                             Toast.LENGTH_SHORT).show();
                                 }
 
-                                avLoadingIndicatorView.setVisibility(View.GONE);
-                                avLoadingIndicatorView.hide();
+                                progressBar.setVisibility(View.GONE);
+
                             }
                         });
             }

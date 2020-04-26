@@ -64,6 +64,7 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
        // btn_sreg.setOnClickListener((View.OnClickListener) this);
     }
 
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -73,7 +74,6 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
 
         }
     }
-
 
     private void registerStudent() {
         final String name = sName.getText().toString().trim();
@@ -156,6 +156,7 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
                                     progressBar.setVisibility(View.GONE);
                                     if (task.isSuccessful()) {
                                         Toast.makeText(StudentRegisterActivity.this, getString(R.string.registration_success), Toast.LENGTH_LONG).show();
+                                        finish();
                                     } else {
                                         Toast.makeText(StudentRegisterActivity.this, getString(R.string.registration_unsuccess), Toast.LENGTH_LONG).show();
                                     }
@@ -172,10 +173,8 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_sregister:
-                registerStudent();
-                break;
+        if (v.getId() == R.id.btn_sregister) {
+            registerStudent();
         }
     }
 }

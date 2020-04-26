@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
@@ -33,8 +34,9 @@ public class TeacherLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity_teacher);
-        findViewById(R.id.btn_tlogin).setOnClickListener((View.OnClickListener) this);
+//        findViewById(R.id.btn_tlogin).setOnClickListener((View.OnClickListener) this);
 
+        Button btn_tlog = (Button) findViewById(R.id.btn_tlogin);
         Button t_register = (Button) findViewById(R.id.btn_tregister2);
         Button reset_pass = (Button) findViewById(R.id.btn_reset_password);
         {
@@ -53,6 +55,7 @@ public class TeacherLoginActivity extends AppCompatActivity {
                     startActivity(repassintent);
                 }
             });
+
         }
 
         // set the view now
