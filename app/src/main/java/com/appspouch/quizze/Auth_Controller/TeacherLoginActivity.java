@@ -19,8 +19,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
+
 public class TeacherLoginActivity extends AppCompatActivity {
 
+    private Button btn_tlog;
     private EditText tEmail, tPassword;
     private ProgressBar progressBar;
 
@@ -30,8 +33,8 @@ public class TeacherLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity_teacher);
+        findViewById(R.id.btn_tlogin).setOnClickListener((View.OnClickListener) this);
 
-        Button t_login = (Button) findViewById(R.id.btn_tlogin);
         Button t_register = (Button) findViewById(R.id.btn_tregister2);
         Button reset_pass = (Button) findViewById(R.id.btn_reset_password);
         {
@@ -54,6 +57,7 @@ public class TeacherLoginActivity extends AppCompatActivity {
 
         // set the view now
 
+
         tEmail =  findViewById(R.id.email);
         tPassword =  findViewById(R.id.password);
         progressBar = findViewById(R.id.progressbar);
@@ -62,7 +66,7 @@ public class TeacherLoginActivity extends AppCompatActivity {
         //Get Firebase auth instance
         tAuth = FirebaseAuth.getInstance();
 
-        t_login.setOnClickListener(new View.OnClickListener() {
+        btn_tlog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = tEmail.getText().toString();
@@ -97,7 +101,7 @@ public class TeacherLoginActivity extends AppCompatActivity {
                                         Toast.makeText(TeacherLoginActivity.this,getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
                                     }
                                 } else {
-                                    if(tAuth.getCurrentUser().isEmailVerified()) {
+                                    if(Objects.requireNonNull(tAuth.getCurrentUser()).isEmailVerified()) {
                                         startActivity(new Intent(TeacherLoginActivity.this, MainScreen.class));
                                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                                         finish();

@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
@@ -25,6 +26,7 @@ import java.util.Objects;
 
 public class StudentRegisterActivity extends AppCompatActivity implements View.OnClickListener{
 
+    private Button btn_sreg;
     private EditText sName, sId, sEmail, sPassword, sMobile;
     private ProgressBar progressBar;
     private FirebaseAuth sAuth;
@@ -47,18 +49,19 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
 
         }
 
+        sAuth = FirebaseAuth.getInstance();
+
+        findViewById(R.id.btn_sregister).setOnClickListener(this);
+        btn_sreg = (Button) findViewById(R.id.btn_tregister);
         sName = findViewById(R.id.name);
         sEmail = findViewById(R.id.email);
         sId = findViewById(R.id.id_no);
         sPassword = findViewById(R.id.password);
         sMobile = findViewById(R.id.contact_no);
-
         progressBar = findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
 
-        sAuth = FirebaseAuth.getInstance();
-
-        findViewById(R.id.btn_sregister).setOnClickListener(this);
+       // btn_sreg.setOnClickListener((View.OnClickListener) this);
     }
 
     @Override
@@ -66,16 +69,19 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
         super.onStart();
 
         if (sAuth.getCurrentUser() != null) {
-            //handle the already login user
+
+
         }
     }
 
-    private void registerUser() {
+
+    private void registerStudent() {
         final String name = sName.getText().toString().trim();
         final String id = sId.getText().toString().trim();
         final String email = sEmail.getText().toString().trim();
         String password = sPassword.getText().toString().trim();
         final String mobile = sMobile.getText().toString().trim();
+        String emailPattern = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
 
         if (name.isEmpty()) {
             sName.setError(getString(R.string.input_error_name));
@@ -95,7 +101,7 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
             return;
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        if (!email.matches(emailPattern)) {
             sEmail.setError(getString(R.string.input_error_email_invalid));
             sEmail.requestFocus();
             return;
@@ -141,8 +147,9 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
                                     mobile
                             );
 
+
                             FirebaseDatabase.getInstance().getReference("Students")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .child(Objects.requireNonNull(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()))
                                     .setValue(student).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -156,7 +163,7 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
                             });
 
                         } else {
-                            Toast.makeText(StudentRegisterActivity.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(StudentRegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -167,7 +174,7 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_sregister:
-                registerUser();
+                registerStudent();
                 break;
         }
     }

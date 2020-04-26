@@ -65,7 +65,7 @@ public class TeacherRegisterActivity extends AppCompatActivity implements View.O
         progressBar = findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
 
-        btn_treg.setOnClickListener((View.OnClickListener) this);
+      //  btn_treg.setOnClickListener((View.OnClickListener) this);
     }
 
     @Override
@@ -83,6 +83,7 @@ public class TeacherRegisterActivity extends AppCompatActivity implements View.O
         String password = tPassword.getText().toString().trim();
         final String mobile = tMobile.getText().toString().trim();
         final String designation = tdesignation.getText().toString().trim();
+        String emailPattern = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
 
         if (name.isEmpty()) {
             tName.setError(getString(R.string.input_error_name));
@@ -96,7 +97,7 @@ public class TeacherRegisterActivity extends AppCompatActivity implements View.O
             return;
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        if (!email.matches(emailPattern)) {
             tEmail.setError(getString(R.string.input_error_email_invalid));
             tEmail.requestFocus();
             return;
@@ -148,8 +149,8 @@ public class TeacherRegisterActivity extends AppCompatActivity implements View.O
                             );
 
 
-                            FirebaseDatabase.getInstance().getReference("Teacher")
-                                    .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getProviderId())
+                            FirebaseDatabase.getInstance().getReference("Teachers")
+                                    .child(Objects.requireNonNull(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()))
                                     .setValue(teacher).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
