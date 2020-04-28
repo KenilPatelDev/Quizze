@@ -230,10 +230,11 @@
                         android:id="@+id/dept_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:entries="@string/department_txt"
+                        android:layout_marginHorizontal="20dp"
                         android:textAlignment="textStart"
                         android:spinnerMode="dropdown"
-                        android:layout_marginTop="5dp"/>
+                        android:layout_marginTop="5dp"
+                        />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -254,10 +255,10 @@
                     android:layout_height="wrap_content">
 
                     <Spinner
-                        android:id="@+id/branch"
+                        android:id="@+id/branch_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:entries="@string/branch_txt"
+                        android:layout_marginHorizontal="20dp"
                         android:textAlignment="textStart"
                         android:layout_marginTop="5dp"
                         android:spinnerMode="dropdown" />

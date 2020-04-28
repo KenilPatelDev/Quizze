@@ -13,12 +13,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.appspouch.quizze.R;
-import com.appspouch.quizze.Teacher_Section.MainScreen;
+import com.appspouch.quizze.Teacher_Section.TeaMainScreen;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
@@ -105,7 +104,7 @@ public class TeacherLoginActivity extends AppCompatActivity {
                                     }
                                 } else {
                                     if(Objects.requireNonNull(tAuth.getCurrentUser()).isEmailVerified()) {
-                                        startActivity(new Intent(TeacherLoginActivity.this, MainScreen.class));
+                                        startActivity(new Intent(TeacherLoginActivity.this, TeaMainScreen.class));
                                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                                         finish();
                                     }else {

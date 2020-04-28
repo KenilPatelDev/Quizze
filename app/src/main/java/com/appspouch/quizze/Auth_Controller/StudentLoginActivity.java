@@ -1,10 +1,14 @@
 package com.appspouch.quizze.Auth_Controller;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.Checkable;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -23,7 +27,7 @@ public class StudentLoginActivity extends AppCompatActivity {
 
     private EditText sEmail, sPassword;
     private ProgressBar progressBar;
-
+    CheckBox remember;
     private FirebaseAuth sAuth;
 
     @Override
@@ -56,10 +60,19 @@ public class StudentLoginActivity extends AppCompatActivity {
         sEmail =  findViewById(R.id.email);
         sPassword =  findViewById(R.id.password);
         progressBar = findViewById(R.id.progressbar);
+        remember = findViewById(R.id.rememberme);
         progressBar.setVisibility(View.GONE);
 
         //Get Firebase auth instance
         sAuth = FirebaseAuth.getInstance();
+
+        SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+        String checkbox = preferences.getString("remember","");
+        if (checkbox.equals("true")){
+            Intent intent = new Intent(StudentLoginActivity.this, StuMainScreen.class);
+            startActivity(intent);
+        }
+
 
         s_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +89,19 @@ public class StudentLoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Enter password!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                remember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                             SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+                             SharedPreferences.Editor editor = preferences.edit();
+                             editor.putString("remember", "true");
+                             editor.apply();
+                         }
+                });
+
+
+
 
                 progressBar.setVisibility(View.VISIBLE);
                 //authenticate user

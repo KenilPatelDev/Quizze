@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,6 +33,7 @@ public class TeacherRegisterActivity extends AppCompatActivity implements View.O
     private Button btn_treg;
     private EditText tName, tEmail, tPassword, tMobile, tdesignation;
     private ProgressBar progressBar;
+    Spinner dept_spinner, branch_spinner;
 
     private FirebaseAuth tAuth;
 
@@ -51,6 +54,17 @@ public class TeacherRegisterActivity extends AppCompatActivity implements View.O
 
         }
 
+        dept_spinner = (Spinner) findViewById(R.id.dept_spinner);
+        branch_spinner = (Spinner) findViewById(R.id.branch_spinner);
+
+        String[] dept = {"CSPIT", "DEPSTAR"};
+        String[] branch = {"CE", "CSE", "IT"};
+
+        ArrayAdapter<String> dadapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, dept);
+        ArrayAdapter<String> badapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, branch);
+
+        dept_spinner.setAdapter(dadapter);
+        branch_spinner.setAdapter(badapter);
 
        tAuth = FirebaseAuth.getInstance();
 
@@ -64,9 +78,13 @@ public class TeacherRegisterActivity extends AppCompatActivity implements View.O
         tdesignation = (EditText) findViewById(R.id.designation);
         progressBar = findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
+        dept_spinner = (Spinner) findViewById(R.id.dept_spinner);
+        branch_spinner = (Spinner) findViewById(R.id.branch_spinner);
+
 
       //  btn_treg.setOnClickListener((View.OnClickListener) this);
     }
+
 
     @Override
     protected void onStart() {
@@ -83,6 +101,8 @@ public class TeacherRegisterActivity extends AppCompatActivity implements View.O
         String password = tPassword.getText().toString().trim();
         final String mobile = tMobile.getText().toString().trim();
         final String designation = tdesignation.getText().toString().trim();
+        final String department = dept_spinner.getSelectedItem().toString().trim();
+        final String branch = branch_spinner.getSelectedItem().toString().trim();
         String emailPattern = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
 
         if (name.isEmpty()) {
@@ -133,6 +153,14 @@ public class TeacherRegisterActivity extends AppCompatActivity implements View.O
             return;
         }
 
+        if (dept_spinner.getSelectedItem().toString().trim() == "Pick one"){
+            dept_spinner.requestFocus();
+        }
+
+        if (branch_spinner.getSelectedItem().toString().trim() == "Select"){
+            branch_spinner.requestFocus();
+        }
+
         progressBar.setVisibility(View.VISIBLE);
         tAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -145,7 +173,9 @@ public class TeacherRegisterActivity extends AppCompatActivity implements View.O
                                     name,
                                     email,
                                     mobile,
-                                    designation
+                                    designation,
+                                    department,
+                                    branch
                             );
 
 

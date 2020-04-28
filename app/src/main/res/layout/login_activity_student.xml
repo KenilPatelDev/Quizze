@@ -117,7 +117,7 @@
                 <androidx.appcompat.widget.AppCompatCheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/radio1"
+                    android:id="@+id/rememberme"
                     android:text="@string/remember_me"
                     android:fontFamily="@font/lato_black"
                     android:layout_marginStart="20dp"

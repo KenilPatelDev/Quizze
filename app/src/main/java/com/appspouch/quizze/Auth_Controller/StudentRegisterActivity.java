@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.appspouch.quizze.Model.Student;
 import com.appspouch.quizze.R;
+import com.google.android.gms.common.api.Batch;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -30,6 +33,7 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
     private EditText sName, sId, sEmail, sPassword, sMobile;
     private ProgressBar progressBar;
     private FirebaseAuth sAuth;
+    Spinner stu_dept, stu_branch, stu_sem, stu_batch;
 
 
     @Override
@@ -49,6 +53,26 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
 
         }
 
+        stu_branch = (Spinner) findViewById(R.id.stu_branch_spinner);
+        stu_dept = (Spinner) findViewById(R.id.stu_dept_spinner);
+        stu_sem = (Spinner) findViewById(R.id.stu_semester_spinner);
+        stu_batch = (Spinner) findViewById(R.id.stu_batch_spinner);
+
+        String[] studept = {"CSPIT", "DEPSTAR"};
+        String[] stubranch = {"CE", "CSE", "IT"};
+        String[] stusem = {"I", "II", "III", "IV", "V", "VI", "VII", "VIII"};
+        String[] stubatch = {"2017", "2018", "2019", "2020", "2021"};
+
+        ArrayAdapter<String> sdadapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, studept);
+        ArrayAdapter<String> sbranadapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, stubranch);
+        ArrayAdapter<String> ssadapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, stusem);
+        ArrayAdapter<String> sbatadapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, stubatch);
+
+        stu_dept.setAdapter(sdadapter);
+        stu_branch.setAdapter(sbranadapter);
+        stu_sem.setAdapter(ssadapter);
+        stu_batch.setAdapter(sbatadapter);
+
         sAuth = FirebaseAuth.getInstance();
 
         findViewById(R.id.btn_sregister).setOnClickListener(this);
@@ -60,6 +84,10 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
         sMobile = findViewById(R.id.contact_no);
         progressBar = findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
+        stu_branch = (Spinner) findViewById(R.id.stu_branch_spinner);
+        stu_dept = (Spinner) findViewById(R.id.stu_dept_spinner);
+        stu_sem = (Spinner) findViewById(R.id.stu_semester_spinner);
+        stu_batch = (Spinner) findViewById(R.id.stu_batch_spinner);
 
        // btn_sreg.setOnClickListener((View.OnClickListener) this);
     }
@@ -81,6 +109,11 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
         final String email = sEmail.getText().toString().trim();
         String password = sPassword.getText().toString().trim();
         final String mobile = sMobile.getText().toString().trim();
+        final String department = stu_dept.getSelectedItem().toString().trim();
+        final String branch = stu_branch.getSelectedItem().toString().trim();
+        final String semester = stu_sem.getSelectedItem().toString().trim();
+        final String batch = stu_batch.getSelectedItem().toString().trim();
+
         String emailPattern = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
 
         if (name.isEmpty()) {
@@ -143,8 +176,12 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
                             Student student = new Student(
                                     name,
                                     id,
+                                    mobile,
                                     email,
-                                    mobile
+                                    department,
+                                    branch,
+                                    semester,
+                                    batch
                             );
 
 
