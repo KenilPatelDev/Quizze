@@ -47,7 +47,10 @@
         <activity android:name=".Teacher_Section.TeaMainScreen"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Student_Section.StuMainScreen"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Other.AboutUsActivity" />
+        <activity android:name=".Other.PrivacyPolicyActivity" />
+
 
     </application>
 

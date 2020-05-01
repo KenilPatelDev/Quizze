@@ -1,4 +1,4 @@
-package com.appspouch.quizze.Teacher_Section;
+package com.appspouch.quizze.Other;
 
 import android.content.Context;
 import android.graphics.Bitmap;

@@ -4,7 +4,7 @@ public class Student {
 
     public String name, email, mobile, id, department, branch, semester, batch;
 
-    public Student(){
+    public Student() {
 
     }
 

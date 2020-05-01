@@ -66,7 +66,7 @@ public class TeacherRegisterActivity extends AppCompatActivity implements View.O
         dept_spinner.setAdapter(dadapter);
         branch_spinner.setAdapter(badapter);
 
-       tAuth = FirebaseAuth.getInstance();
+        tAuth = FirebaseAuth.getInstance();
 
         findViewById(R.id.btn_tregister).setOnClickListener(this);
 
@@ -82,7 +82,7 @@ public class TeacherRegisterActivity extends AppCompatActivity implements View.O
         branch_spinner = (Spinner) findViewById(R.id.branch_spinner);
 
 
-      //  btn_treg.setOnClickListener((View.OnClickListener) this);
+        //  btn_treg.setOnClickListener((View.OnClickListener) this);
     }
 
 
@@ -147,18 +147,10 @@ public class TeacherRegisterActivity extends AppCompatActivity implements View.O
             return;
         }
 
-        if (designation.isEmpty()){
+        if (designation.isEmpty()) {
             tdesignation.setError(getString(R.string.input_error_designation));
             tdesignation.requestFocus();
             return;
-        }
-
-        if (dept_spinner.getSelectedItem().toString().trim() == "Pick one"){
-            dept_spinner.requestFocus();
-        }
-
-        if (branch_spinner.getSelectedItem().toString().trim() == "Select"){
-            branch_spinner.requestFocus();
         }
 
         progressBar.setVisibility(View.VISIBLE);

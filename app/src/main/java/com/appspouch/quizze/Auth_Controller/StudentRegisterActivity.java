@@ -1,5 +1,6 @@
 package com.appspouch.quizze.Auth_Controller;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -15,22 +16,24 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.appspouch.quizze.Model.Student;
+import com.appspouch.quizze.Model.Teacher;
 import com.appspouch.quizze.R;
-import com.google.android.gms.common.api.Batch;
+import com.appspouch.quizze.Student_Section.StuMainScreen;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
 
-public class StudentRegisterActivity extends AppCompatActivity implements View.OnClickListener{
+public class StudentRegisterActivity extends AppCompatActivity implements View.OnClickListener {
+
 
     private Button btn_sreg;
-    private EditText sName, sId, sEmail, sPassword, sMobile;
+    private EditText sName, sEmail, sPassword, sMobile, sId;
     private ProgressBar progressBar;
     private FirebaseAuth sAuth;
     Spinner stu_dept, stu_branch, stu_sem, stu_batch;
@@ -46,8 +49,8 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
             s_login.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                      Intent sloginintent = new Intent(StudentRegisterActivity.this, StudentLoginActivity.class);
-                      startActivity(sloginintent);
+                    Intent sloginintent = new Intent(StudentRegisterActivity.this, StudentLoginActivity.class);
+                    startActivity(sloginintent);
                 }
             });
 
@@ -76,12 +79,12 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
         sAuth = FirebaseAuth.getInstance();
 
         findViewById(R.id.btn_sregister).setOnClickListener(this);
-        btn_sreg = (Button) findViewById(R.id.btn_tregister);
-        sName = findViewById(R.id.name);
-        sEmail = findViewById(R.id.email);
-        sId = findViewById(R.id.id_no);
-        sPassword = findViewById(R.id.password);
-        sMobile = findViewById(R.id.contact_no);
+        btn_sreg = (Button) findViewById(R.id.btn_sregister);
+        sName = (EditText) findViewById(R.id.name);
+        sEmail = (EditText) findViewById(R.id.email);
+        sPassword = (EditText) findViewById(R.id.password);
+        sMobile = (EditText) findViewById(R.id.contact_no);
+        sId = (EditText) findViewById(R.id.id_no);
         progressBar = findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
         stu_branch = (Spinner) findViewById(R.id.stu_branch_spinner);
@@ -89,7 +92,8 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
         stu_sem = (Spinner) findViewById(R.id.stu_semester_spinner);
         stu_batch = (Spinner) findViewById(R.id.stu_batch_spinner);
 
-       // btn_sreg.setOnClickListener((View.OnClickListener) this);
+
+        //  btn_treg.setOnClickListener((View.OnClickListener) this);
     }
 
 
@@ -98,22 +102,20 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
         super.onStart();
 
         if (sAuth.getCurrentUser() != null) {
-
-
+            //handle the already login user
         }
     }
 
     private void registerStudent() {
         final String name = sName.getText().toString().trim();
-        final String id = sId.getText().toString().trim();
-        final String email = sEmail.getText().toString().trim();
+         final String email = sEmail.getText().toString().trim();
         String password = sPassword.getText().toString().trim();
-        final String mobile = sMobile.getText().toString().trim();
-        final String department = stu_dept.getSelectedItem().toString().trim();
-        final String branch = stu_branch.getSelectedItem().toString().trim();
-        final String semester = stu_sem.getSelectedItem().toString().trim();
-        final String batch = stu_batch.getSelectedItem().toString().trim();
-
+         final String mobile = sMobile.getText().toString().trim();
+         final String id = sId.getText().toString().trim();
+         final String department = stu_dept.getSelectedItem().toString().trim();
+         final String branch = stu_branch.getSelectedItem().toString().trim();
+         final String semester = stu_sem.getSelectedItem().toString().trim();
+         final String batch = stu_batch.getSelectedItem().toString().trim();
         String emailPattern = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
 
         if (name.isEmpty()) {
@@ -121,12 +123,6 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
             sName.requestFocus();
             return;
         }
-
-       if (id.isEmpty()){
-           sId.setError(getString(R.string.input_error_id));
-           sId.requestFocus();
-           return;
-       }
 
         if (email.isEmpty()) {
             sEmail.setError(getString(R.string.input_error_email));
@@ -164,6 +160,12 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
             return;
         }
 
+        if (id.isEmpty()) {
+            sId.setError(getString(R.string.input_error_designation));
+            sId.requestFocus();
+            return;
+        }
+
 
         progressBar.setVisibility(View.VISIBLE);
         sAuth.createUserWithEmailAndPassword(email, password)
@@ -176,8 +178,8 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
                             Student student = new Student(
                                     name,
                                     id,
-                                    mobile,
                                     email,
+                                    mobile,
                                     department,
                                     branch,
                                     semester,
@@ -210,8 +212,10 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.btn_sregister) {
-            registerStudent();
+        switch (v.getId()) {
+            case R.id.btn_sregister:
+                registerStudent();
+                break;
         }
     }
 }

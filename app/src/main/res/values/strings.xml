@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Quizze</string>
 
-    <string name="email_unverified">Email verification not done.Check your email.</string>
+    <string name="email_unverified">Check your email.</string>
     <string name="email_sent">Verification email is sent.Check your email.</string>
     <string name="Welcome">Welcome back, User</string>
     <string name="email">Email</string>
