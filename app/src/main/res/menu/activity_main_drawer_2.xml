@@ -15,10 +15,10 @@
             android:title="@string/nav_profile" />
 
         <item
-            android:id="@+id/nav_class"
+            android:id="@+id/nav_join_class"
             android:icon="@drawable/ic_add_circle_outline_black_24dp"
             android:font="@font/lato_black"
-            android:title="@string/nav_create_class" />
+            android:title="@string/nav_join_class" />
         <item
             android:id="@+id/nav_result"
             android:icon="@drawable/ic_assignment_ind_black_24dp"

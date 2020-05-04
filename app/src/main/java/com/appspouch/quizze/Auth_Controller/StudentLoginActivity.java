@@ -18,10 +18,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.appspouch.quizze.R;
 import com.appspouch.quizze.Student_Section.StuMainScreen;
+import com.appspouch.quizze.Teacher_Section.TeaMainScreen;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class StudentLoginActivity extends AppCompatActivity {
 
@@ -29,6 +31,20 @@ public class StudentLoginActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     CheckBox remember;
     private FirebaseAuth sAuth;
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser firebaseUser = sAuth.getCurrentUser();
+        if (firebaseUser != null) {
+            Intent i = new Intent(StudentLoginActivity.this, StuMainScreen.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,21 +73,14 @@ public class StudentLoginActivity extends AppCompatActivity {
 
         }
 
-        sEmail =  findViewById(R.id.email);
-        sPassword =  findViewById(R.id.password);
+        sEmail = findViewById(R.id.email);
+        sPassword = findViewById(R.id.password);
         progressBar = findViewById(R.id.progressbar);
-        remember = findViewById(R.id.rememberme);
+//        remember = findViewById(R.id.rememberme);
         progressBar.setVisibility(View.GONE);
 
         //Get Firebase auth instance
         sAuth = FirebaseAuth.getInstance();
-
-        SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
-        String checkbox = preferences.getString("remember","");
-        if (checkbox.equals("true")){
-            Intent intent = new Intent(StudentLoginActivity.this, StuMainScreen.class);
-            startActivity(intent);
-        }
 
 
         s_login.setOnClickListener(new View.OnClickListener() {
@@ -81,26 +90,14 @@ public class StudentLoginActivity extends AppCompatActivity {
                 final String password = sPassword.getText().toString();
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(),"Enter email address!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(),"Enter password!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                remember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                             SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
-                             SharedPreferences.Editor editor = preferences.edit();
-                             editor.putString("remember", "true");
-                             editor.apply();
-                         }
-                });
-
-
 
 
                 progressBar.setVisibility(View.VISIBLE);
@@ -119,17 +116,14 @@ public class StudentLoginActivity extends AppCompatActivity {
                                     if (password.length() < 6) {
                                         sPassword.setError(getString(R.string.minimum_password));
                                     } else {
-                                        Toast.makeText(StudentLoginActivity.this,getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
+                                        Toast.makeText(StudentLoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
                                     }
-                                } else {
-                                    if(sAuth.getCurrentUser().isEmailVerified()) {
-                                        startActivity(new Intent(StudentLoginActivity.this, StuMainScreen.class));
-                                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                                        finish();
-                                    }else {
-                                        Toast.makeText(StudentLoginActivity.this, R.string.email_unverified, Toast.LENGTH_SHORT).show();
-                                        FirebaseAuth.getInstance().signOut();
-                                    }
+                                }
+                                else {
+                                    task.isSuccessful();
+                                    startActivity(new Intent(StudentLoginActivity.this, StuMainScreen.class));
+                                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                                    finish();
 
                                 }
                             }

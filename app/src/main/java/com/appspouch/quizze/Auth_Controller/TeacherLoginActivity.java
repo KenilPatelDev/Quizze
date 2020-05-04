@@ -1,6 +1,7 @@
 package com.appspouch.quizze.Auth_Controller;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
@@ -26,8 +28,22 @@ public class TeacherLoginActivity extends AppCompatActivity {
     private Button btn_tlog;
     private EditText tEmail, tPassword;
     private ProgressBar progressBar;
-
+    SharedPreferences sp;
     private FirebaseAuth tAuth;
+
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+
+        FirebaseUser firebaseUser = tAuth.getCurrentUser();
+        if (firebaseUser != null){
+            Intent i = new Intent(TeacherLoginActivity.this, TeaMainScreen.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +72,6 @@ public class TeacherLoginActivity extends AppCompatActivity {
             });
 
         }
-
-        // set the view now
 
 
         tEmail =  findViewById(R.id.email);
@@ -102,16 +116,12 @@ public class TeacherLoginActivity extends AppCompatActivity {
                                     } else {
                                         Toast.makeText(TeacherLoginActivity.this,getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
                                     }
-                                } else {
-                                    if(Objects.requireNonNull(tAuth.getCurrentUser()).isEmailVerified()) {
-                                        startActivity(new Intent(TeacherLoginActivity.this, TeaMainScreen.class));
-                                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                                        finish();
-                                    }else {
-                                        Toast.makeText(TeacherLoginActivity.this, R.string.email_unverified, Toast.LENGTH_SHORT).show();
-                                        FirebaseAuth.getInstance().signOut();
-                                    }
-
+                                }
+                                else {
+                                    task.isSuccessful();
+                                    startActivity(new Intent(TeacherLoginActivity.this, TeaMainScreen.class));
+                                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                                    finish();
                                 }
                             }
                         });

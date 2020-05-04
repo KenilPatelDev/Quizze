@@ -102,10 +102,10 @@ public class TeaMainScreen extends AppCompatActivity implements NavigationView.O
     public boolean onNavigationItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             // Handle navigation view item clicks here.
-          //  int id = item.getItemId();
+            //  int id = item.getItemId();
 
 
-            case  R.id.nav_home: {
+            case R.id.nav_home: {
                 if (isNetworkAvailable(TeaMainScreen.this)) {
                     //  startActivity(new Intent(TeaMainScreen.this, HomeFragment.class));
                     //loadFragment(new HomeFragment());
@@ -115,7 +115,7 @@ public class TeaMainScreen extends AppCompatActivity implements NavigationView.O
                     break;
                 } else
                     alertNoConnection();
-                    break;
+                break;
             }
             case R.id.nav_Profile: {
                 if (isNetworkAvailable(TeaMainScreen.this)) {
@@ -128,9 +128,9 @@ public class TeaMainScreen extends AppCompatActivity implements NavigationView.O
                     break;
                 } else
                     alertNoConnection();
-                    break;
+                break;
             }
-            case  R.id.nav_class: {
+            case R.id.nav_class: {
                 if (isNetworkAvailable(TeaMainScreen.this)) {
                     // startActivity(new Intent(TeaMainScreen.this, ClassFragment.class));
                     //loadFragment(new ClassFragment());
@@ -140,9 +140,9 @@ public class TeaMainScreen extends AppCompatActivity implements NavigationView.O
                     break;
                 } else
                     alertNoConnection();
-                    break;
+                break;
             }
-            case  R.id.nav_result: {
+            case R.id.nav_result: {
                 if (isNetworkAvailable(TeaMainScreen.this)) {
                     //startActivity(new Intent(TeaMainScreen.this, ResultFragment.class));
                     //loadFragment(new ResultFragment());
@@ -152,16 +152,19 @@ public class TeaMainScreen extends AppCompatActivity implements NavigationView.O
                     break;
                 } else
                     alertNoConnection();
-                    break;
+                break;
             }
-            case  R.id.nav_logout: {
+            case R.id.nav_logout: {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(TeaMainScreen.this, MainActivity.class));
+                Intent intent = new Intent(TeaMainScreen.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
                 finish();
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
             }
-            case  R.id.nav_about_us: {
+            case R.id.nav_about_us: {
                 startActivity(new Intent(TeaMainScreen.this, AboutUsActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
@@ -188,8 +191,8 @@ public class TeaMainScreen extends AppCompatActivity implements NavigationView.O
             }
         }
 
-            drawerLayout.closeDrawer(GravityCompat.START);
-            return true;
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
 
     }
 

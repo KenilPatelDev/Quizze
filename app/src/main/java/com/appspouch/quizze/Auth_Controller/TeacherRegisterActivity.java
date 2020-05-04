@@ -86,14 +86,7 @@ public class TeacherRegisterActivity extends AppCompatActivity implements View.O
     }
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
 
-        if (tAuth.getCurrentUser() != null) {
-            //handle the already login user
-        }
-    }
 
     private void registerTeacher() {
         final String name = tName.getText().toString().trim();
@@ -192,6 +185,15 @@ public class TeacherRegisterActivity extends AppCompatActivity implements View.O
                     }
                 });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (tAuth.getCurrentUser() != null) {
+            //handle the already login user
+        }
     }
 
     @Override
