@@ -3,8 +3,15 @@ package com.appspouch.quizze.Student_Section;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,27 +19,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.appspouch.quizze.Other.AboutUsActivity;
+import com.appspouch.quizze.Attempt_Quiz_Section.Tests;
 import com.appspouch.quizze.Auth_Controller.MainActivity;
-import com.appspouch.quizze.Other.PrivacyPolicyActivity;
-import com.appspouch.quizze.StudentFragment.JoinClassFragment;
-import com.appspouch.quizze.StudentFragment.SHomeFragment;
-import com.appspouch.quizze.StudentFragment.SProfileFragment;
-import com.appspouch.quizze.StudentFragment.SResultFragment;
-import com.appspouch.quizze.TeacherFragments.HomeFragment;
-import com.appspouch.quizze.TeacherFragments.ProfileFragment;
-import com.appspouch.quizze.TeacherFragments.ClassFragment;
-import com.appspouch.quizze.TeacherFragments.ResultFragment;
+import com.appspouch.quizze.Other.AboutUsActivity;
+import com.appspouch.quizze.Other.BottomSheetFragment;
 import com.appspouch.quizze.R;
-
-import android.content.Intent;
-import android.view.MenuItem;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.Toast;
-
+import com.appspouch.quizze.StudentActivity.SProfileActivity;
+import com.appspouch.quizze.StudentActivity.SResultActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.StorageReference;
 
@@ -43,7 +39,9 @@ public class StuMainScreen extends AppCompatActivity implements NavigationView.O
 
     private FirebaseDatabase database;
     private FirebaseAuth tAuth;
+    private DatabaseReference myRef;
     public ImageButton imageButton;
+
     private StorageReference firebaseStorage;
     public CircleImageView imageView1;
     private DrawerLayout drawerLayout;
@@ -68,11 +66,20 @@ public class StuMainScreen extends AppCompatActivity implements NavigationView.O
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new HomeFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_home);
-        }
+        imageButton = findViewById(R.id.userImage2);
+
+        //fragment for term & conditions!
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomSheetFragment sheetFragment = new BottomSheetFragment();
+                sheetFragment.show(getSupportFragmentManager(),sheetFragment.getTag());
+            }
+        });
+
+        tAuth = FirebaseAuth.getInstance();
+        database= FirebaseDatabase.getInstance();
+        myRef=database.getReference();
     }
 
     /*    public void setImageOnNavHeader() {
@@ -102,103 +109,7 @@ public class StuMainScreen extends AppCompatActivity implements NavigationView.O
     }  */
 
 
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Handle navigation view item clicks here.
-            //  int id = item.getItemId();
 
-
-            case R.id.nav_home: {
-                if (isNetworkAvailable(StuMainScreen.this)) {
-                    //  startActivity(new Intent(TeaMainScreen.this, HomeFragment.class));
-                    //loadFragment(new HomeFragment());
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            new SHomeFragment()).commit();
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    break;
-                } else
-                    alertNoConnection();
-                break;
-            }
-            case R.id.nav_Profile: {
-                if (isNetworkAvailable(StuMainScreen.this)) {
-                    // Intent intent = new Intent(TeaMainScreen.this, ProfileFragment.class);
-                    //startActivity(intent);
-                    //loadFragment(new ProfileFragment());
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            new SProfileFragment()).commit();
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    break;
-                } else
-                    alertNoConnection();
-                break;
-            }
-            case R.id.nav_join_class: {
-                if (isNetworkAvailable(StuMainScreen.this)) {
-                    // startActivity(new Intent(TeaMainScreen.this, ClassFragment.class));
-                    //loadFragment(new ClassFragment());
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            new JoinClassFragment()).commit();
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    break;
-                } else
-                    alertNoConnection();
-                break;
-            }
-            case R.id.nav_result: {
-                if (isNetworkAvailable(StuMainScreen.this)) {
-                    //startActivity(new Intent(TeaMainScreen.this, ResultFragment.class));
-                    //loadFragment(new ResultFragment());
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            new SResultFragment()).commit();
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    break;
-                } else
-                    alertNoConnection();
-                break;
-            }
-            case R.id.nav_logout: {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(StuMainScreen.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                break;
-            }
-            case R.id.nav_about_us: {
-                startActivity(new Intent(StuMainScreen.this, AboutUsActivity.class));
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                break;
-            }
-            case R.id.nav_privacy_policy: {
-                startActivity(new Intent(StuMainScreen.this, PrivacyPolicyActivity.class));
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                break;
-            }
-            case R.id.feedback_id: {
-
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("message/rfc822");
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"Enter your email here"});
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Regarding Your Test or Application Feedback");
-                intent.putExtra(Intent.EXTRA_TEXT, "Put your subject here!");
-                try {
-                    startActivity(Intent.createChooser(intent, "Send mail..."));
-                    break;
-                } catch (android.content.ActivityNotFoundException ex) {
-                    Toast.makeText(getApplicationContext(), "There are no email clients installed.", Toast.LENGTH_SHORT).show();
-                    break;
-                }
-            }
-        }
-
-        drawerLayout.closeDrawer(GravityCompat.START);
-        return true;
-
-    }
 
     @Override
     public void onBackPressed() {
@@ -209,6 +120,82 @@ public class StuMainScreen extends AppCompatActivity implements NavigationView.O
             super.onBackPressed();
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        //noinspection SimplifiableIfStatement
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+         if (id == R.id.nav_Profile) {
+            if ( isNetworkAvailable(StuMainScreen.this)) {
+                Intent intent = new Intent(StuMainScreen.this, SProfileActivity.class);
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
+            else
+                alertNoConnection();
+        } else if (id == R.id.nav_attempt_test) {
+            if (isNetworkAvailable(StuMainScreen.this)) {
+                startActivity(new Intent(StuMainScreen.this, Tests.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
+            else
+                alertNoConnection();
+        } else if (id == R.id.nav_result) {
+            if (isNetworkAvailable(StuMainScreen.this)) {
+                startActivity(new Intent(StuMainScreen.this, SResultActivity.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
+            else
+                alertNoConnection();
+        } else if (id == R.id.nav_logout) {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(StuMainScreen.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        } else if (id == R.id.nav_about_us) {
+            startActivity(new Intent(StuMainScreen.this, AboutUsActivity.class));
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        } else if (id == R.id.feedback_id) {
+
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("message/rfc822");
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"Enter your email here"});
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Regarding Your Test or Application Feedback");
+            intent.putExtra(Intent.EXTRA_TEXT, "Put your subject here!");
+            try {
+                startActivity(Intent.createChooser(intent, "Send mail..."));
+            } catch (android.content.ActivityNotFoundException ex) {
+                Toast.makeText(getApplicationContext(), "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
 
 
     /*method to handle network connection**/

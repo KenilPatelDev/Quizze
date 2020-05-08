@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            android:id="@+id/tooltst">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarsp"
+                app:navigationIcon="@drawable/ic_keyboard_arrow_left_black_24dp"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                android:background="?android:attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+        <!--
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TableRow
+                    android:id="@+id/tableRow1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato_black"
+                        android:gravity="center"
+                        android:text="DETAILS"
+                        android:textColor="@color/bg_main"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+                </TableRow>
+            </TableLayout>
+                                    -->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/li1"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="vertical" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_gravity="center_horizontal|center"
+            android:background="@drawable/circular_card"
+            android:backgroundTint="@android:color/holo_blue_light">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingHorizontal="30dp"
+                    android:paddingTop="30dp"
+                    android:paddingBottom="30dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/USERIMAGE"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/user">
+
+                    </de.hdodenhof.circleimageview.CircleImageView>
+                </TableRow>
+            </TableLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/text_user_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/lato_black"
+            android:gravity="center"
+            android:padding="7dp"
+            android:text="@string/Welcome"
+            android:textAllCaps="true"
+            android:textColor="#00BFA5"
+            android:textSize="24sp" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingTop="30dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="2dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/bg_main"
+                android:fontFamily="@font/lato_black"
+                android:padding="5dp"
+                android:text="Name"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/s_det_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorAccent"
+                android:fontFamily="@font/lato_bold"
+                android:padding="5dp"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="2dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/bg_main"
+                android:fontFamily="@font/lato_black"
+                android:padding="5dp"
+                android:text="ID No"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/s_det_id"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorAccent"
+                android:fontFamily="@font/lato_bold"
+
+                android:padding="5dp"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="2dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/bg_main"
+                android:fontFamily="@font/lato_black"
+                android:padding="5dp"
+                android:text="Department"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/s_det_dept"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorAccent"
+                android:fontFamily="@font/lato_bold"
+                android:padding="5dp"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="2dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/bg_main"
+                android:fontFamily="@font/lato_black"
+                android:padding="5dp"
+                android:text="Branch"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/s_det_branch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorAccent"
+                android:fontFamily="@font/lato_bold"
+                android:padding="5dp"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="2dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/bg_main"
+                android:fontFamily="@font/lato_black"
+                android:padding="5dp"
+                android:text="E-mail"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/s_det_email"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorAccent"
+                android:fontFamily="@font/lato_bold"
+                android:padding="5dp"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="2dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/bg_main"
+                android:fontFamily="@font/lato_black"
+                android:padding="5dp"
+                android:text="Contact No"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/s_det_contact"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorAccent"
+                android:fontFamily="@font/lato_bold"
+                android:padding="5dp"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/s_profile_update"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/button_circular"
+                    android:fontFamily="@font/lato_black"
+                    android:gravity="center"
+                    android:padding="0dp"
+                    android:text="Update"
+                    android:textColor="#ffff"
+                    android:textStyle="bold" />
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/join1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:text="Enter Class Code"
+        android:textSize="30sp"
+        android:textStyle="bold"
+
+        />
+
+    <EditText
+        android:id="@+id/class_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30sp"
+        android:ems="10"
+        android:hint="@string/fui_enter_confirmation_code"
+        android:inputType="textPersonName"
+        android:text="Class Code" />
+
+    <Button
+        android:id="@+id/join_class_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
+        android:background="@color/fui_linkColor"
+        android:text="Join Class"
+        android:textColor="@color/white" />
+
+</LinearLayout>

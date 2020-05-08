@@ -4,11 +4,6 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_home_black_24dp"
-            android:font="@font/lato_black"
-            android:title="@string/nav_home" />
-        <item
             android:id="@+id/nav_Profile"
             android:icon="@drawable/ic_account_circle_black_24dp"
             android:font="@font/lato_black"
@@ -18,7 +13,7 @@
             android:id="@+id/nav_class"
             android:icon="@drawable/ic_add_circle_outline_black_24dp"
             android:font="@font/lato_black"
-            android:title="@string/nav_create_class" />
+            android:title="@string/nav_class" />
         <item
             android:id="@+id/nav_result"
             android:icon="@drawable/ic_assignment_ind_black_24dp"
@@ -27,7 +22,7 @@
 
         <item
             android:id="@+id/nav_logout"
-            android:icon="@drawable/ic_settings_black_24dp"
+            android:icon="@drawable/ic_logout_black_24dp"
             android:font="@font/lato_black"
             android:title="@string/nav_logout" />
     </group>
@@ -39,11 +34,7 @@
                 android:icon="@drawable/ic_info_outline_black_24dp"
                 android:font="@font/lato_black"
                 android:title="@string/nav_about_us" />
-            <item
-                android:id="@+id/nav_privacy_policy"
-                android:icon="@drawable/ic_privacy_policy_black_24dp"
-                android:font="@font/lato_black"
-                android:title="@string/privacy_policy" />
+
             <item
                 android:id="@+id/feedback_id"
                 android:icon="@drawable/ic_feedback_black_24dp"

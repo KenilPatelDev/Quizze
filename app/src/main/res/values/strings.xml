@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Quizze</string>
+    <string name="text">"Terms &amp; Conditions"</string>
 
     <string name="email_sent">Verification email is sent.Check your email.</string>
     <string name="Welcome">Welcome</string>
@@ -56,15 +57,15 @@
     <string name="closeDrawer">close_drawer</string>
 
     <!-- Navigation Drawer menu labels -->
-    <string name="nav_home">Home</string>
+
     <string name="nav_logout">Logout</string>
     <string name="nav_give_feedback">Give Feedback</string>
     <string name="nav_result">Result</string>
-    <string name="nav_create_class">Create Class</string>
+    <string name="nav_class">Class</string>
     <string name="nav_profile">Profile</string>
     <string name="nav_about_us">About Us</string>
     <string name="privacy_policy">Privacy Policy</string>
-    <string name="nav_join_class">Join Class</string>
+    <string name="nav_attempt_test">Attempt Test</string>
 
     <string name="activity_title_about_us">About Us</string>
     <string name="activity_title_privacy_policy">Privacy Policy</string>

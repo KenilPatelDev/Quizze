@@ -1,16 +1,51 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Teacher_Section.TeaMainScreen">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:id="@+id/tooltst">
 
-    <TextView
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbartc"
+            app:navigationIcon="@drawable/ic_keyboard_arrow_left_black_24dp"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="?android:attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <Button
+        android:id="@+id/create_class_ab"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/circular_coloured_button"
+        android:text="Create Quiz"
+        android:fontFamily="@font/lato_black"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+ <!--   <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/create_class_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:text="Create Class Fragment"
-        android:textSize="30sp" />
-
-
-</RelativeLayout>
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:background="#ff5252"
+        android:visibility="visible"
+        android:backgroundTint="#1F4D61"
+        app:backgroundTint="@color/common_google_signin_btn_text_light_default"
+        android:src="@android:drawable/ic_menu_add" />
+-->
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
