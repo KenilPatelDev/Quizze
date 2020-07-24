@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,7 +33,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -40,7 +40,7 @@ import java.util.Objects;
 public class Tests extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
-    private AVLoadingIndicatorView avLoadingIndicatorView;
+    private ProgressBar progressBar;
     private ListView listView;
     private TestAdapter testAdapter;
     private int lastPos = -1;
@@ -54,9 +54,8 @@ public class Tests extends AppCompatActivity {
         Toolbar toolbar =  findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.black));
         setSupportActionBar(toolbar);
-        avLoadingIndicatorView = findViewById(R.id.loader1);
-        avLoadingIndicatorView.setVisibility(View.VISIBLE);
-        avLoadingIndicatorView.show();
+        progressBar = findViewById(R.id.progressbar);
+        progressBar.setVisibility(View.VISIBLE);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar())
                 .setDisplayHomeAsUpEnabled(true);
@@ -106,15 +105,13 @@ public class Tests extends AppCompatActivity {
                 }
                 testAdapter.dataList=tests;
                 testAdapter.notifyDataSetChanged();
-                avLoadingIndicatorView.setVisibility(View.GONE);
-                avLoadingIndicatorView.hide();
+                progressBar.setVisibility(View.GONE);
                 Log.e("The read success: " ,"su"+tests.size());
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                avLoadingIndicatorView.setVisibility(View.GONE);
-                avLoadingIndicatorView.hide();
+                progressBar.setVisibility(View.GONE);
                 Log.e("The read failed: " ,databaseError.getMessage());
             }
         });

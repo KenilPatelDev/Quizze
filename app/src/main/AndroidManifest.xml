@@ -50,8 +50,6 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Student_Section.StuMainScreen"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".TeacherActivity.TResultActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".TeacherActivity.TClassActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".TeacherActivity.TProfileActivity"
@@ -65,10 +63,11 @@
         <activity android:name=".Attempt_Quiz_Section.Tests"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Other.AboutUsActivity" />
-
-        <activity android:name=".StudentActivity.SProfileActivity"
+        <activity android:name=".Student_Section.SProfileActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".StudentActivity.SResultActivity"
+        <activity android:name=".Results_section.ResultsAdminDetailed"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Results_section.ResultsAdmin"
             android:theme="@style/AppTheme.NoActionBar"/>
 
 

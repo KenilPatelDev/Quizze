@@ -1,4 +1,4 @@
-package com.appspouch.quizze.TeacherActivity;
+package com.appspouch.quizze.Student_Section;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -10,13 +10,13 @@ import com.appspouch.quizze.R;
 
 import java.util.Objects;
 
-public class TResultActivity extends AppCompatActivity {
+public class SProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tea_reasult);
-        Toolbar toolbar = findViewById(R.id.toolbartr);
+        setContentView(R.layout.activity_stu_profile);
+        Toolbar toolbar = findViewById(R.id.toolbarsp);
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.black));
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -33,4 +33,7 @@ public class TResultActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
 }

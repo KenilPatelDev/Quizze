@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -24,7 +23,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
@@ -126,6 +124,7 @@ public class AttemptTest extends AppCompatActivity {
         });
 
         timer=((Test) getIntent().getExtras().get("Questions")).getTime()*60*1000;
+
     }
     void showPopUp(){
         AlertDialog.Builder builder=new AlertDialog.Builder(AttemptTest.this);

@@ -11,8 +11,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -20,17 +22,24 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.appspouch.quizze.Auth_Controller.MainActivity;
+import com.appspouch.quizze.Model.Teacher;
 import com.appspouch.quizze.Other.AboutUsActivity;
 import com.appspouch.quizze.Other.BottomSheetFragment;
 import com.appspouch.quizze.R;
+import com.appspouch.quizze.Results_section.ResultsAdmin;
 import com.appspouch.quizze.TeacherActivity.TClassActivity;
 import com.appspouch.quizze.TeacherActivity.TProfileActivity;
-import com.appspouch.quizze.TeacherActivity.TResultActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -44,6 +53,8 @@ public class TeaMainScreen extends AppCompatActivity implements NavigationView.O
     private StorageReference firebaseStorage;
     public CircleImageView imageView1;
     private DrawerLayout drawerLayout;
+    public TextView USer_email;
+    private TextView userID;
     ActionBarDrawerToggle toggle;
     NavigationView navigationView;
     FrameLayout frameLayout;
@@ -56,6 +67,7 @@ public class TeaMainScreen extends AppCompatActivity implements NavigationView.O
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        imageButton = findViewById(R.id.userImage2);
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -66,28 +78,38 @@ public class TeaMainScreen extends AppCompatActivity implements NavigationView.O
         toggle.syncState();
 
 
-        imageButton = findViewById(R.id.userImage2);
+        tAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference();
+
+        /*set profile_pic of user on navigation drawer**/
+        View header = navigationView.getHeaderView(0);
+        imageView1 = (navigationView.getHeaderView(0)).findViewById(R.id.imageView);
+        USer_email = header.findViewById(R.id.textView);
+        setTextOnUser();
+        navigationView.setNavigationItemSelectedListener(this);
+//        userID = findViewById(R.id.text_user_name);
+//        setuserID();
+//        setImageOnNavHeader();
 
         //fragment for term & conditions!
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 BottomSheetFragment sheetFragment = new BottomSheetFragment();
-                sheetFragment.show(getSupportFragmentManager(),sheetFragment.getTag());
+                sheetFragment.show(getSupportFragmentManager(), sheetFragment.getTag());
             }
         });
 
-        tAuth = FirebaseAuth.getInstance();
-        database= FirebaseDatabase.getInstance();
-        myRef=database.getReference();
+
       /*  if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new HomeFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         } */
     }
-
-    /*    public void setImageOnNavHeader() {
+/*
+    public void setImageOnNavHeader() {
 
         firebaseStorage = FirebaseStorage.getInstance().getReference(Objects.requireNonNull(tAuth.getUid()));
         firebaseStorage.getBytes(ONE_MEGABYTE)
@@ -111,7 +133,36 @@ public class TeaMainScreen extends AppCompatActivity implements NavigationView.O
 
             }
         });
-    }  */
+    }
+*/
+    //set textView on MainActivity
+    public void setuserID() {
+
+        myRef = database.getReference();
+        myRef.child("Teachers").child(Objects.requireNonNull(tAuth.getUid()))
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        if (dataSnapshot.exists()) {
+                            Teacher teacher = dataSnapshot.getValue(Teacher.class);
+                            userID.setText(Objects.requireNonNull(teacher).getName());
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+    }
+
+    public void setTextOnUser() {
+        FirebaseUser tuser = FirebaseAuth.getInstance().getCurrentUser();
+        USer_email.setText(Objects.requireNonNull(tuser).getEmail());
+    }
 
     @Override
     public void onBackPressed() {
@@ -146,29 +197,25 @@ public class TeaMainScreen extends AppCompatActivity implements NavigationView.O
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-         if (id == R.id.nav_Profile) {
-            if ( isNetworkAvailable(TeaMainScreen.this)) {
+        if (id == R.id.nav_Profile) {
+            if (isNetworkAvailable(TeaMainScreen.this)) {
                 Intent intent = new Intent(TeaMainScreen.this, TProfileActivity.class);
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-            }
-            else
+            } else
                 alertNoConnection();
         } else if (id == R.id.nav_class) {
             if (isNetworkAvailable(TeaMainScreen.this)) {
                 startActivity(new Intent(TeaMainScreen.this, TClassActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
-            else if (isNetworkAvailable(TeaMainScreen.this))
-                Toast.makeText(getApplicationContext(), "You are not Admin!", Toast.LENGTH_SHORT).show();
             else
                 alertNoConnection();
         } else if (id == R.id.nav_result) {
             if (isNetworkAvailable(TeaMainScreen.this)) {
-                startActivity(new Intent(TeaMainScreen.this, TResultActivity.class));
+                startActivity(new Intent(TeaMainScreen.this, ResultsAdmin.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-            }
-            else
+            } else
                 alertNoConnection();
         } else if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
@@ -181,7 +228,7 @@ public class TeaMainScreen extends AppCompatActivity implements NavigationView.O
         } else if (id == R.id.nav_about_us) {
             startActivity(new Intent(TeaMainScreen.this, AboutUsActivity.class));
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-        }  else if (id == R.id.feedback_id) {
+        } else if (id == R.id.feedback_id) {
 
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("message/rfc822");
@@ -195,11 +242,10 @@ public class TeaMainScreen extends AppCompatActivity implements NavigationView.O
             }
         }
 
-        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 
 
     /*method to handle network connection**/

@@ -15,7 +15,7 @@
         android:layout_height="100dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:src="@drawable/user" />
-
+<!--
     <TextView
         android:id="@+id/text_user_name"
         android:layout_width="match_parent"
@@ -23,14 +23,14 @@
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:fontFamily="@font/lato_regular"
         android:text="UserName"
-        android:textColor="#000000"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
+        android:textColor="#000000" />
+-->
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/lato_bold"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="Email-Id"
         android:textColor="#000000"/>
 

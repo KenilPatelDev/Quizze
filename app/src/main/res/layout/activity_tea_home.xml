@@ -25,7 +25,7 @@
             android:layout_gravity="center_horizontal|center"
             android:background="@drawable/circular_card"
             android:backgroundTint="@android:color/holo_blue_light">
-            <!--
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/card1"
                 android:layout_width="180dp"
@@ -36,7 +36,7 @@
                 android:src="@drawable/icon1">
 
             </de.hdodenhof.circleimageview.CircleImageView>
-                                                    -->
+
         </androidx.cardview.widget.CardView>
 
         <TextView

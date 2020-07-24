@@ -40,15 +40,11 @@
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
 
-    <com.wang.avi.AVLoadingIndicatorView
-        android:id="@+id/loader1"
-        style="@style/AVLoadingIndicatorView.Large"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:elevation="10dp"
-        android:visibility="gone"
-        app:indicatorColor="@android:color/holo_orange_light"
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:indicatorName="BallScaleMultipleIndicator" />
+        android:visibility="gone" />
 
 </FrameLayout>

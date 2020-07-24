@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,13 +24,15 @@ import com.appspouch.quizze.Auth_Controller.MainActivity;
 import com.appspouch.quizze.Other.AboutUsActivity;
 import com.appspouch.quizze.Other.BottomSheetFragment;
 import com.appspouch.quizze.R;
-import com.appspouch.quizze.StudentActivity.SProfileActivity;
-import com.appspouch.quizze.StudentActivity.SResultActivity;
+import com.appspouch.quizze.Results_section.ResultsAdmin;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -41,7 +43,7 @@ public class StuMainScreen extends AppCompatActivity implements NavigationView.O
     private FirebaseAuth tAuth;
     private DatabaseReference myRef;
     public ImageButton imageButton;
-
+    public TextView USer_email;
     private StorageReference firebaseStorage;
     public CircleImageView imageView1;
     private DrawerLayout drawerLayout;
@@ -67,6 +69,16 @@ public class StuMainScreen extends AppCompatActivity implements NavigationView.O
         toggle.syncState();
 
         imageButton = findViewById(R.id.userImage2);
+
+        /*set profile_pic of user on navigation drawer**/
+        View header = navigationView.getHeaderView(0);
+        imageView1 = (navigationView.getHeaderView(0)).findViewById(R.id.imageView);
+        USer_email = header.findViewById(R.id.textView);
+        setTextOnUser();
+        navigationView.setNavigationItemSelectedListener(this);
+//        userID = findViewById(R.id.text_user_name);
+//        setuserID();
+//        setImageOnNavHeader();
 
         //fragment for term & conditions!
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -109,6 +121,10 @@ public class StuMainScreen extends AppCompatActivity implements NavigationView.O
     }  */
 
 
+    public void setTextOnUser() {
+        FirebaseUser suser = FirebaseAuth.getInstance().getCurrentUser();
+        USer_email.setText(Objects.requireNonNull(suser).getEmail());
+    }
 
 
     @Override
@@ -161,7 +177,7 @@ public class StuMainScreen extends AppCompatActivity implements NavigationView.O
                 alertNoConnection();
         } else if (id == R.id.nav_result) {
             if (isNetworkAvailable(StuMainScreen.this)) {
-                startActivity(new Intent(StuMainScreen.this, SResultActivity.class));
+                startActivity(new Intent(StuMainScreen.this, ResultsAdmin.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
             else
@@ -179,16 +195,23 @@ public class StuMainScreen extends AppCompatActivity implements NavigationView.O
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         } else if (id == R.id.feedback_id) {
 
+             Intent feedbackEmail = new Intent(Intent.ACTION_SEND);
+
+             feedbackEmail.setType("text/email");
+             feedbackEmail.putExtra(Intent.EXTRA_EMAIL, new String[] {"kenilpatel229@gmail.com"});
+             feedbackEmail.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
+             startActivity(Intent.createChooser(feedbackEmail, "Send Feedback:"));
+            /*
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("message/rfc822");
-            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"Enter your email here"});
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"kenilpatel229@gmail.com"});
             intent.putExtra(Intent.EXTRA_SUBJECT, "Regarding Your Test or Application Feedback");
             intent.putExtra(Intent.EXTRA_TEXT, "Put your subject here!");
             try {
                 startActivity(Intent.createChooser(intent, "Send mail..."));
             } catch (android.content.ActivityNotFoundException ex) {
                 Toast.makeText(getApplicationContext(), "There are no email clients installed.", Toast.LENGTH_SHORT).show();
-            }
+            } */
         }
 
         DrawerLayout drawer =  findViewById(R.id.drawer_layout);

@@ -187,6 +187,7 @@ public class Custom_quiz extends AppCompatActivity {
                                                 fileName = userInput.getText().toString().trim();
                                                 if (!TextUtils.isEmpty(fileName))
                                                     myRef.child("tests").child(fileName).setValue(result);
+                                                finish();
                                             }
                                         }
                                     })

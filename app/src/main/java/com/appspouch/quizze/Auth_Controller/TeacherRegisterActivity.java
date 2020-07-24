@@ -1,6 +1,5 @@
 package com.appspouch.quizze.Auth_Controller;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -19,7 +18,6 @@ import com.appspouch.quizze.Model.Teacher;
 import com.appspouch.quizze.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
@@ -85,7 +83,14 @@ public class TeacherRegisterActivity extends AppCompatActivity implements View.O
         //  btn_treg.setOnClickListener((View.OnClickListener) this);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
 
+        if (tAuth.getCurrentUser() != null) {
+            //handle the already login user
+        }
+    }
 
 
     private void registerTeacher() {
@@ -96,7 +101,7 @@ public class TeacherRegisterActivity extends AppCompatActivity implements View.O
         final String designation = tdesignation.getText().toString().trim();
         final String department = dept_spinner.getSelectedItem().toString().trim();
         final String branch = branch_spinner.getSelectedItem().toString().trim();
-        String emailPattern = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+
 
         if (name.isEmpty()) {
             tName.setError(getString(R.string.input_error_name));
@@ -110,7 +115,7 @@ public class TeacherRegisterActivity extends AppCompatActivity implements View.O
             return;
         }
 
-        if (!email.matches(emailPattern)) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             tEmail.setError(getString(R.string.input_error_email_invalid));
             tEmail.requestFocus();
             return;
@@ -187,14 +192,6 @@ public class TeacherRegisterActivity extends AppCompatActivity implements View.O
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        if (tAuth.getCurrentUser() != null) {
-            //handle the already login user
-        }
-    }
 
     @Override
     public void onClick(View v) {

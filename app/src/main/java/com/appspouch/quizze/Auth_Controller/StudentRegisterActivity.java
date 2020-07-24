@@ -1,6 +1,5 @@
 package com.appspouch.quizze.Auth_Controller;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -16,12 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.appspouch.quizze.Model.Student;
-import com.appspouch.quizze.Model.Teacher;
 import com.appspouch.quizze.R;
-import com.appspouch.quizze.Student_Section.StuMainScreen;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
@@ -35,10 +31,9 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
     private Button btn_sreg;
     private EditText sName, sEmail, sPassword, sMobile, sId;
     private ProgressBar progressBar;
-    private FirebaseAuth sAuth;
     Spinner stu_dept, stu_branch, stu_sem, stu_batch;
 
-
+    private FirebaseAuth sAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,23 +74,22 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
         sAuth = FirebaseAuth.getInstance();
 
         findViewById(R.id.btn_sregister).setOnClickListener(this);
+
         btn_sreg = (Button) findViewById(R.id.btn_sregister);
-        sName = (EditText) findViewById(R.id.name);
+        sName = (EditText) findViewById(R.id.f_name);
         sEmail = (EditText) findViewById(R.id.email);
         sPassword = (EditText) findViewById(R.id.password);
         sMobile = (EditText) findViewById(R.id.contact_no);
         sId = (EditText) findViewById(R.id.id_no);
-        progressBar = findViewById(R.id.progressbar);
-        progressBar.setVisibility(View.GONE);
         stu_branch = (Spinner) findViewById(R.id.stu_branch_spinner);
         stu_dept = (Spinner) findViewById(R.id.stu_dept_spinner);
         stu_sem = (Spinner) findViewById(R.id.stu_semester_spinner);
         stu_batch = (Spinner) findViewById(R.id.stu_batch_spinner);
-
+        progressBar = findViewById(R.id.progressbar);
+        progressBar.setVisibility(View.GONE);
 
         //  btn_treg.setOnClickListener((View.OnClickListener) this);
     }
-
 
     @Override
     protected void onStart() {
@@ -106,17 +100,20 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
         }
     }
 
+
     private void registerStudent() {
+
         final String name = sName.getText().toString().trim();
-         final String email = sEmail.getText().toString().trim();
+        final String email = sEmail.getText().toString().trim();
         String password = sPassword.getText().toString().trim();
-         final String mobile = sMobile.getText().toString().trim();
-         final String id = sId.getText().toString().trim();
-         final String department = stu_dept.getSelectedItem().toString().trim();
-         final String branch = stu_branch.getSelectedItem().toString().trim();
-         final String semester = stu_sem.getSelectedItem().toString().trim();
-         final String batch = stu_batch.getSelectedItem().toString().trim();
-        String emailPattern = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+        final String mobile = sMobile.getText().toString().trim();
+        final String id = sId.getText().toString().trim();
+        final String department = stu_dept.getSelectedItem().toString().trim();
+        final String branch = stu_branch.getSelectedItem().toString().trim();
+        final String semester = stu_sem.getSelectedItem().toString().trim();
+        final String batch = stu_batch.getSelectedItem().toString().trim();
+
+
 
         if (name.isEmpty()) {
             sName.setError(getString(R.string.input_error_name));
@@ -130,7 +127,7 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
             return;
         }
 
-        if (!email.matches(emailPattern)) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             sEmail.setError(getString(R.string.input_error_email_invalid));
             sEmail.requestFocus();
             return;
@@ -169,7 +166,7 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
 
         progressBar.setVisibility(View.VISIBLE);
         sAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
@@ -177,9 +174,9 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
 
                             Student student = new Student(
                                     name,
-                                    id,
                                     email,
                                     mobile,
+                                    id,
                                     department,
                                     branch,
                                     semester,
@@ -202,13 +199,15 @@ public class StudentRegisterActivity extends AppCompatActivity implements View.O
                                 }
                             });
 
-                        } else {
+                        }  else {
                             Toast.makeText(StudentRegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 });
 
     }
+
+
 
     @Override
     public void onClick(View v) {
